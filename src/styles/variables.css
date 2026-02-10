@@ -1,23 +1,25 @@
 /* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Ma+Shan+Zheng&display=swap');
+/* 'Ma Shan Zheng' is a handwriting font similar to the slogan style */
 
 :root {
-  /* Brand Colors */
-  --color-primary: #0F4C81; /* Deep Ocean Blue - Classic Blue */
-  --color-primary-dark: #082D4F;
-  --color-primary-light: #3E7CB1;
+  /* Brand Colors - Extracted from Brochure */
+  --color-primary: #0B3058; /* Deep Navy Blue */
+  --color-primary-dark: #061A30;
+  --color-primary-light: #2A5A8A;
   
-  --color-secondary: #9B5DE5; /* Soft Lavender/Purple accent */
-  --color-secondary-light: #E0C3FC;
+  --color-secondary: #C59D5F; /* Gold/Bronze Accent for numbers */
+  --color-secondary-light: #E0C89F;
   
-  --color-accent: #00B4D8; /* Clean Cyan for tech feel */
+  --color-accent: #00B4D8; /* Cyan/Light Blue for Tech/Waves */
+  --color-accent-light: #EAF4FA; /* Very light blue bg */
   
   /* Neutral Colors */
-  --color-bg-body: #F8F9FA;
+  --color-bg-body: #F5F7FA;
   --color-bg-card: #FFFFFF;
-  --color-text-main: #1F2937;
-  --color-text-secondary: #4B5563;
-  --color-text-light: #9CA3AF;
+  --color-text-main: #1A1A1A;
+  --color-text-secondary: #4A4A4A;
+  --color-text-light: #888888;
   
   /* Status Colors */
   --color-success: #10B981;
@@ -25,8 +27,9 @@
   --color-error: #EF4444;
 
   /* Typography */
-  --font-heading: 'Playfair Display', 'Noto Serif SC', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Noto Sans SC', sans-serif; /* Clean, bold */
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-script: 'Ma Shan Zheng', cursive; /* For the "Have love..." slogan */
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -34,28 +37,20 @@
   --spacing-md: 1rem;
   --spacing-lg: 2rem;
   --spacing-xl: 4rem;
+  --spacing-2xl: 6rem;
   
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 2px 4px rgba(11, 48, 88, 0.05); /* Blue-tinted shadow */
+  --shadow-md: 0 6px 12px -2px rgba(11, 48, 88, 0.1);
+  --shadow-lg: 0 15px 25px -5px rgba(11, 48, 88, 0.1), 0 8px 10px -6px rgba(11, 48, 88, 0.1);
   
   /* Border Radius */
   --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
+  --radius-md: 0.75rem; /* Softer curves derived from UI */
+  --radius-lg: 1.5rem;
   --radius-full: 9999px;
   
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 300ms ease;
-}
-
-/* Dark Mode (Future Proofing) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --color-bg-body: #0F172A; */
-    /* --color-bg-card: #1E293B; */
-    /* --color-text-main: #F3F4F6; */
-  }
 }

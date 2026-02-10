@@ -19,8 +19,7 @@ const Layout = ({ children }) => {
         }
         .main-content {
           flex: 1;
-          /* Padding top to account for fixed header if needed, 
-             or handle in Hero section to allow full bleed */
+          width: 100%;
         }
       `}</style>
     </div>

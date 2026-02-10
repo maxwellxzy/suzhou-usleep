@@ -86,14 +86,14 @@ const Header = () => {
           display: flex;
           align-items: center;
           z-index: 1000;
-          transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+          transition: all 0.4s ease;
           background: transparent;
         }
 
         .header.scrolled {
-          background: rgba(255, 255, 255, 0.95);
+          background: rgba(255, 255, 255, 0.98);
           backdrop-filter: blur(10px);
-          box-shadow: var(--shadow-sm);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.05);
           height: 70px;
         }
 
@@ -101,25 +101,28 @@ const Header = () => {
           font-family: var(--font-heading);
           font-weight: 700;
           font-size: 1.5rem;
-          color: var(--color-primary);
+          color: white; /* Default White on Dark Hero */
           display: flex;
           align-items: center;
           gap: 0.5rem;
+          transition: color 0.4s ease;
         }
+        
+        .header.scrolled .logo { color: var(--color-primary); }
 
         .logo-text-en { font-style: italic; letter-spacing: 1px; }
         .logo-text-cn { font-size: 1.25rem; font-weight: 400; }
-        .logo-divider { color: var(--color-secondary); opacity: 0.5; }
+        .logo-divider { color: var(--color-secondary); opacity: 0.8; }
 
         .nav-link {
           font-weight: 500;
-          color: var(--color-text-main);
+          color: rgba(255, 255, 255, 0.9); /* White on Dark Hero */
           position: relative;
+          transition: color 0.4s ease;
         }
 
         .header.scrolled .nav-link { color: var(--color-text-main); }
-        .header:not(.scrolled) .nav-link { color: var(--color-text-main); } /* Adjust if hero is dark */
-
+        
         .nav-link::after {
           content: '';
           position: absolute;
@@ -131,23 +134,34 @@ const Header = () => {
           transition: width 0.3s ease;
         }
 
+        .nav-link:hover { color: white; }
+        .header.scrolled .nav-link:hover { color: var(--color-primary); }
         .nav-link:hover::after { width: 100%; }
 
         .btn-primary {
-          background: var(--color-primary);
+          background: var(--color-secondary); /* Gold Button */
           color: white;
-          padding: 0.5rem 1.25rem;
+          padding: 0.5rem 1.5rem;
           border-radius: var(--radius-full);
           font-weight: 600;
-          transition: background 0.3s ease, transform 0.2s ease;
+          transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-          background: var(--color-primary-dark);
-          transform: translateY(-1px);
+          background: white;
+          color: var(--color-primary);
+        }
+        
+        .header.scrolled .btn-primary {
+           background: var(--color-primary);
+           color: white;
+        }
+        .header.scrolled .btn-primary:hover {
+           background: var(--color-primary-dark);
         }
 
-        .mobile-toggle { display: none; background: none; color: var(--color-text-main); }
+        .mobile-toggle { display: none; background: none; color: white; }
+        .header.scrolled .mobile-toggle { color: var(--color-text-main); }
         
         .mobile-menu {
           position: absolute;

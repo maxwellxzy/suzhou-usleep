@@ -2,109 +2,134 @@ import React from 'react';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="section bg-light-blue">
+    <section id="about" className="section bg-gradient">
       <div className="container">
-        <div className="about-content grid grid-cols-2 gap-lg items-center">
+        {/* Intro */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-primary mb-4">医学中心简介</h2>
+          <p className="text-secondary opacity-80 uppercase tracking-widest text-sm mb-6">Introduction to Suzhou Gusu Usleep Medical Center</p>
+          <div className="divider-center"></div>
+        </div>
+
+        <div className="about-content grid grid-cols-2 gap-xl items-center mb-16">
           <div className="about-text">
-            <h2 className="text-3xl font-bold text-primary-dark mb-4">关于中心</h2>
-            <div className="divider"></div>
-            <p className="text-secondary mb-6">
-              苏州姑苏优眠医学中心（Suzhou Gusu Usleep Medical Center）是专注于儿童青少年心理健康、家庭睡眠管理及综合精神心理服务的专业医疗机构。
+            <p className="text-main mb-6 leading-relaxed">
+              <strong className="text-primary text-lg">苏州姑苏优眠医学中心</strong> 打造以医生与来访者为核心的多元一体化平台，全国范围内首次引进的斯坦福加速智能神经调控诊疗模式，精准靶点高效治疗精神心理疾病。
             </p>
-            <p className="text-secondary mb-6">
-              中心秉承“构建健康智慧的精神世界，成就身心共济的健康人生”的愿景，汇聚国内顶尖精神心理专家团队，引进斯坦福SAINT等国际前沿诊疗技术。
+            <p className="text-secondary mb-8 leading-relaxed">
+              中心拥有专业的心理诊疗团队，针对各类心理困扰提供个性化的咨询服务及预防干预；拥有AI智能深度睡眠产品，通过环境优化与心理疏导，重塑健康睡眠。
             </p>
-            <div className="values grid grid-cols-2 gap-md">
-              <div className="value-item">
-                <span className="value-num">01</span>
-                <h4>专业引领</h4>
-                <p>国家级专家坐诊</p>
-              </div>
-              <div className="value-item">
-                <span className="value-num">02</span>
-                <h4>科学循证</h4>
-                <p>前沿物理治疗技术</p>
-              </div>
-              <div className="value-item">
-                <span className="value-num">03</span>
-                <h4>身心同治</h4>
-                <p>多学科联合诊疗</p>
-              </div>
-              <div className="value-item">
-                <span className="value-num">04</span>
-                <h4>人文关怀</h4>
-                <p>全周期定制服务</p>
-              </div>
+            
+            <div className="slogan-box">
+               <span className="handwriting-font">有笑 有爱 有优眠</span>
             </div>
           </div>
           
-          <div className="about-image card">
-             {/* Placeholder for an environment image or general hospital image */}
-             <div className="image-placeholder">
-                <span>中心环境展示</span>
+          <div className="about-image-wrapper">
+             {/* Placeholder for brochure image p1.jpg or similar */}
+             <div className="image-placeholder rounded-lg">
+                <span>Center Environment</span>
              </div>
+          </div>
+        </div>
+
+        {/* Stats Section - Brochure Page 3 */}
+        <div className="stats-grid grid grid-cols-3 gap-lg">
+          <div className="stat-card">
+            <div className="stat-number">5</div>
+            <div className="stat-label">五优服务</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number">7</div>
+            <div className="stat-label">七大品质</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number">30<span className="stat-unit">年</span></div>
+            <div className="stat-label">从业经验</div>
           </div>
         </div>
       </div>
 
       <style>{`
-        .bg-light-blue { background: linear-gradient(to right, #F0F4F8, #FFFFFF); }
+        .bg-gradient { background: linear-gradient(to bottom, #FFFFFF 0%, var(--color-accent-light) 100%); }
+        .gap-xl { gap: 4rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-16 { margin-bottom: 4rem; }
         .mb-4 { margin-bottom: 1rem; }
         .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
         
-        .divider {
-          width: 80px;
+        .divider-center {
+          width: 60px;
           height: 4px;
-          background: var(--color-primary);
-          margin-bottom: 2rem;
+          background: var(--color-secondary);
+          margin: 0 auto;
+          border-radius: var(--radius-full);
         }
 
-        .about-text { padding-right: 2rem; }
+        .text-main { color: var(--color-text-main); font-size: 1.1rem; }
+        
+        .handwriting-font {
+          font-family: var(--font-script);
+          font-size: 2.5rem;
+          color: var(--color-primary);
+          transform: rotate(-3deg);
+          display: inline-block;
+        }
 
         .image-placeholder {
           width: 100%;
-          height: 400px;
-          background: var(--color-bg-body);
+          height: 360px;
+          background: var(--color-primary);
+          opacity: 0.05;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--color-text-light);
-          border-radius: var(--radius-md);
+          color: var(--color-primary);
+          border: 2px dashed var(--color-primary);
+        }
+        
+        .rounded-lg { border-radius: var(--radius-lg); }
+
+        /* Stats Styling */
+        .stats-grid {
+          text-align: center;
+          max-width: 900px;
+          margin: 0 auto;
         }
 
-        .value-item {
-          background: white;
-          padding: 1rem;
-          border-radius: var(--radius-md);
-          box-shadow: var(--shadow-sm);
-          transition: transform 0.3s ease;
+        .stat-card {
+           position: relative;
         }
-
-        .value-item:hover { transform: translateY(-3px); }
-
-        .value-num {
-          font-size: 1.5rem;
+        
+        /* Add dividers between stats if needed, simplified here */
+        
+        .stat-number {
+          font-size: 5rem;
           font-weight: 700;
-          color: alpha(var(--color-primary), 0.1); /* Fallback */
-          color: rgba(15, 76, 129, 0.15);
-          display: block;
-          margin-bottom: 0.25rem;
+          color: var(--color-primary); /* Brochure uses Blue for 5, 7, 30 */
+          line-height: 1;
+          margin-bottom: 0.5rem;
         }
 
-        .value-item h4 {
+        .stat-unit {
+          font-size: 1.5rem;
+          margin-left: 0.25rem;
+        }
+
+        .stat-label {
+          background: var(--color-primary);
+          color: white;
+          padding: 0.5rem 1.5rem;
+          border-radius: var(--radius-full);
+          display: inline-block;
           font-size: 1.1rem;
-          margin-bottom: 0.25rem;
-          color: var(--color-primary-dark);
+          font-weight: 500;
         }
 
-        .value-item p {
-          font-size: 0.9rem;
-          color: var(--color-text-secondary);
-        }
-
-        @media (max-width: 900px) {
-          .about-content { grid-template-columns: 1fr; }
-          .about-text { padding-right: 0; margin-bottom: 2rem; }
+        @media (max-width: 768px) {
+          .about-content { grid-template-columns: 1fr; gap: 2rem; }
+          .stats-grid { grid-template-columns: 1fr; gap: 3rem; }
         }
       `}</style>
     </section>
