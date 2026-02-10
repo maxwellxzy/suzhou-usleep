@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import doctorsData from '../data/doctors.json';
 
-const ExpertGrid = () => {
+const ExpertGrid = ({ hideTitle = false, limit, showViewAll }) => {
   const [visibleCount, setVisibleCount] = useState(8);
+  
+  const displayData = limit ? doctorsData.slice(0, limit) : doctorsData.slice(0, visibleCount);
 
   // Helper to resolve image path
   const getImageUrl = (imageName) => {
-    // In Vite, static assets in public or imported. 
-    // Since we put them in src/assets/images, we need to import them dynamically or use URL.
-    // Dynamic import is async.
-    // Easier way for this scale: new URL
     return new URL(`../assets/images/${imageName}`, import.meta.url).href;
   };
 
   return (
     <section id="experts" className="section bg-white">
       <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-primary-dark mb-4">顶尖专家团队</h2>
-          <p className="text-secondary max-w-2xl mx-auto">
-            汇聚国家级精神心理科专家，平均从业经验超过30年，提供精准、高效的诊疗方案。
-          </p>
-        </div>
+        {!hideTitle && (
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary-dark mb-4">顶尖专家团队</h2>
+            <p className="text-secondary max-w-2xl mx-auto">
+              汇聚国家级精神心理科专家，平均从业经验超过30年，提供精准、高效的诊疗方案。
+            </p>
+          </div>
+        )}
 
         <div className="grid grid-cols-4 gap-lg">
-          {doctorsData.slice(0, visibleCount).map((doc, index) => (
+          {displayData.map((doc, index) => (
             <div key={index} className="expert-card card">
               <div className="expert-img-wrapper">
                 <img 
@@ -48,15 +48,25 @@ const ExpertGrid = () => {
           ))}
         </div>
 
-        {visibleCount < doctorsData.length && (
+
+
+        {showViewAll ? (
           <div className="text-center mt-12">
-            <button 
-              className="btn-secondary"
-              onClick={() => setVisibleCount(prev => prev + 4)}
-            >
+            <a href="/team" className="btn-secondary">
               查看更多专家
-            </button>
+            </a>
           </div>
+        ) : (
+          visibleCount < doctorsData.length && !limit && (
+            <div className="text-center mt-12">
+              <button 
+                className="btn-secondary"
+                onClick={() => setVisibleCount(prev => prev + 4)}
+              >
+                查看更多专家
+              </button>
+            </div>
+          )
         )}
       </div>
 
@@ -78,7 +88,7 @@ const ExpertGrid = () => {
         }
 
         .expert-img-wrapper {
-          height: 240px;
+          height: 220px;
           overflow: hidden;
           background: #f0f0f0;
         }
@@ -87,6 +97,7 @@ const ExpertGrid = () => {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: top;
           transition: transform 0.5s ease;
         }
 
@@ -143,12 +154,14 @@ const ExpertGrid = () => {
         }
 
         .btn-secondary {
+          display: inline-block;
           padding: 0.75rem 2rem;
           border: 1px solid var(--color-text-light);
           border-radius: var(--radius-full);
           background: transparent;
           color: var(--color-text-main);
           transition: all 0.3s ease;
+          text-decoration: none;
         }
 
         .btn-secondary:hover {

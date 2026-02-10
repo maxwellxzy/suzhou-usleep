@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Phone, MapPin, Mail, Clock } from 'lucide-react';
 
 const Footer = () => {
@@ -19,28 +20,24 @@ const Footer = () => {
           <div className="footer-col">
             <h4>快速导航</h4>
             <ul className="footer-links">
-              <li><a href="#home">首页 Home</a></li>
-              <li><a href="#experts">专家团队 Experts</a></li>
-              <li><a href="#technology">核心技术 Technology</a></li>
-              <li><a href="#services">诊疗服务 Services</a></li>
+              <li><Link to="/">首页 Home</Link></li>
+              <li><Link to="/team">专家团队 Experts</Link></li>
+              <li><Link to="/technology">核心技术 Technology</Link></li>
+              <li><Link to="/services">诊疗服务 Services</Link></li>
             </ul>
           </div>
 
           {/* Contact Info */}
-          <div className="footer-col contact-col">
+            <div className="footer-col contact-col">
             <h4>联系我们</h4>
             <ul className="contact-list">
               <li>
                 <MapPin size={18} />
-                <span>苏州市姑苏区... (Address)</span>
+                <span>江苏省苏州市姑苏区齐溪街899号3幢4F</span>
               </li>
               <li>
                 <Phone size={18} />
-                <span>0512-XXXX-XXXX</span>
-              </li>
-              <li>
-                <Mail size={18} />
-                <span>contact@usleep.com</span>
+                <span>0512-66215999 / 18206250907</span>
               </li>
             </ul>
           </div>
@@ -51,11 +48,11 @@ const Footer = () => {
             <ul className="contact-list">
               <li>
                 <Clock size={18} />
-                <span>周一至周日: 8:00 - 17:00</span>
+                <span>周一至周日: 8:00 - 17:00 (无节假日)</span>
               </li>
             </ul>
             <div className="map-placeholder">
-              <span>Map View</span>
+              <span>查看地图</span>
             </div>
           </div>
         </div>

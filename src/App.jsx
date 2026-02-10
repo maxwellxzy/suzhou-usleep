@@ -1,25 +1,35 @@
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import { Loader } from 'lucide-react';
 
-// Lazy load heavy page components
-const Home = lazy(() => import('./pages/Home'));
+// Lazy Load Pages
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Services = React.lazy(() => import('./pages/Services'));
+const Team = React.lazy(() => import('./pages/Team'));
+const Technology = React.lazy(() => import('./pages/Technology'));
+const Contact = React.lazy(() => import('./pages/Contact'));
 
 function App() {
   return (
-    <Layout>
-      <Suspense fallback={
-        <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Loader className="animate-spin text-primary" size={48} />
-          <style>{`
-            @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-            .animate-spin { animation: spin 1s linear infinite; }
-          `}</style>
-        </div>
-      }>
-        <Home />
-      </Suspense>
-    </Layout>
+    <Router>
+      <Layout>
+        <Suspense fallback={
+          <div className="flex justify-center items-center h-screen text-primary">
+            Loading...
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/technology" element={<Technology />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </Suspense>
+      </Layout>
+    </Router>
   );
 }
 
