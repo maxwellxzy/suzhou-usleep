@@ -42,7 +42,7 @@ const Team = () => {
       </section>
 
       {/* Expert List */}
-      <ExpertGrid hideTitle={true} />
+      <ExpertGrid hideTitle={true} bioTruncate={false} />
 
       <style>{`
         .team-stats-grid {

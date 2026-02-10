@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import doctorsData from '../data/doctors.json';
 
-const ExpertGrid = ({ hideTitle = false, limit, showViewAll }) => {
+const ExpertGrid = ({ hideTitle = false, limit, showViewAll, bioTruncate = true }) => {
   const [visibleCount, setVisibleCount] = useState(8);
   
   const displayData = limit ? doctorsData.slice(0, limit) : doctorsData.slice(0, visibleCount);
@@ -42,7 +42,7 @@ const ExpertGrid = ({ hideTitle = false, limit, showViewAll }) => {
                     <span key={i} className="tag">{tag}</span>
                   ))}
                 </div>
-                <p className="expert-bio line-clamp-3">{doc.bio}</p>
+                <p className={`expert-bio ${bioTruncate ? 'line-clamp-3' : ''}`}>{doc.bio}</p>
               </div>
             </div>
           ))}
