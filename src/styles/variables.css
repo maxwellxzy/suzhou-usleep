@@ -1,0 +1,61 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  /* Brand Colors */
+  --color-primary: #0F4C81; /* Deep Ocean Blue - Classic Blue */
+  --color-primary-dark: #082D4F;
+  --color-primary-light: #3E7CB1;
+  
+  --color-secondary: #9B5DE5; /* Soft Lavender/Purple accent */
+  --color-secondary-light: #E0C3FC;
+  
+  --color-accent: #00B4D8; /* Clean Cyan for tech feel */
+  
+  /* Neutral Colors */
+  --color-bg-body: #F8F9FA;
+  --color-bg-card: #FFFFFF;
+  --color-text-main: #1F2937;
+  --color-text-secondary: #4B5563;
+  --color-text-light: #9CA3AF;
+  
+  /* Status Colors */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', 'Noto Serif SC', serif;
+  --font-body: 'Inter', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}
+
+/* Dark Mode (Future Proofing) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --color-bg-body: #0F172A; */
+    /* --color-bg-card: #1E293B; */
+    /* --color-text-main: #F3F4F6; */
+  }
+}
