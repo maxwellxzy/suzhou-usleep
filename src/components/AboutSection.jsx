@@ -1,6 +1,10 @@
 import React from 'react';
 
 const AboutSection = () => {
+  const getImageUrl = (name) => {
+    return new URL(`../assets/images/${name}`, import.meta.url).href;
+  };
+
   return (
     <section id="about" className="section bg-gradient">
       <div className="container">
@@ -25,11 +29,13 @@ const AboutSection = () => {
             </div>
           </div>
           
-          <div className="about-image-wrapper">
-             {/* Placeholder for brochure image p1.jpg or similar */}
-             <div className="image-placeholder rounded-lg">
-                <span>Center Environment</span>
-             </div>
+          <div className="about-image-wrapper card">
+             <img 
+               src={getImageUrl('0a502de9b6b26071920a73dc69b143d57ea40da841cdc2325a60b80526c0c795.jpg')} 
+               alt="苏州姑苏优眠医学中心环境" 
+               className="about-img"
+               loading="lazy"
+             />
           </div>
         </div>
 
@@ -77,16 +83,21 @@ const AboutSection = () => {
           display: inline-block;
         }
 
-        .image-placeholder {
+        .about-image-wrapper {
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          box-shadow: var(--shadow-md);
+        }
+
+        .about-img {
           width: 100%;
-          height: 360px;
-          background: var(--color-primary);
-          opacity: 0.05;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--color-primary);
-          border: 2px dashed var(--color-primary);
+          height: auto;
+          display: block;
+          transition: transform 0.5s ease;
+        }
+        
+        .about-image-wrapper:hover .about-img {
+          transform: scale(1.02);
         }
         
         .rounded-lg { border-radius: var(--radius-lg); }
