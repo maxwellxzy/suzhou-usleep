@@ -115,7 +115,7 @@ const BookingModal = ({ isOpen, onClose }) => {
 
               <div className="booking-field">
                 <label>期望就诊时间</label>
-                <input name="preferred_time" value={form.preferred_time} onChange={handleChange} placeholder="如：下周一上午" />
+                <input name="preferred_time" value={form.preferred_time} onChange={handleChange} placeholder="如：2月10日上午" />
               </div>
 
               <div className="booking-field">

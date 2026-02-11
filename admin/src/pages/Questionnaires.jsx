@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Row, Col, Button, Tag, Space, Modal, message, Popconfirm, Empty } from 'antd'
+import { Card, Row, Col, Button, Tag, Space, Modal, message, Popconfirm, Empty, Typography } from 'antd'
+const { Paragraph } = Typography
 import { PlusOutlined, EditOutlined, DeleteOutlined, CopyOutlined, LinkOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { getQuestionnaires, deleteQuestionnaire, updateQuestionnaire } from '../api/questionnaires'
@@ -33,11 +34,9 @@ export default function Questionnaires() {
     fetchData()
   }
 
-  const copyShareLink = (shareCode) => {
-    const link = `${window.location.origin}/questionnaire/${shareCode}`
-    navigator.clipboard.writeText(link)
-    message.success('分享链接已复制')
-  }
+  // 获取主站的基础URL (开发环境通过 .env 配置，生产环境默认为当前域名)
+  const mainSiteUrl = import.meta.env.VITE_MAIN_SITE_URL || window.location.origin
+
 
   const categoryColors = {
     '睡眠': 'blue', '抑郁': 'purple', '焦虑': 'orange',
@@ -58,36 +57,48 @@ export default function Questionnaires() {
         <Empty description="暂无量表，点击上方按钮新建" />
       ) : (
         <Row gutter={[16, 16]}>
-          {data.map((item) => (
-            <Col xs={24} sm={12} lg={8} key={item.id}>
-              <Card
-                title={item.title}
-                extra={<Tag color={item.is_active ? 'green' : 'default'}>
-                  {item.is_active ? '启用' : '停用'}
-                </Tag>}
-                actions={[
-                  <EditOutlined key="edit" onClick={() => navigate(`/questionnaires/${item.id}`)} />,
-                  <CopyOutlined key="copy" onClick={() => copyShareLink(item.share_code)} />,
-                  <Popconfirm title="确认删除？" key="delete" onConfirm={() => handleDelete(item.id)}>
-                    <DeleteOutlined />
-                  </Popconfirm>,
-                ]}
-              >
-                <p style={{ color: '#666', marginBottom: 8 }}>{item.description || '暂无描述'}</p>
-                <Space>
-                  {item.category && <Tag color={categoryColors[item.category] || 'default'}>{item.category}</Tag>}
-                  <Tag icon={<LinkOutlined />} color="processing">
-                    {item.share_code}
-                  </Tag>
-                </Space>
-                <div style={{ marginTop: 12 }}>
-                  <Button size="small" onClick={() => handleToggleActive(item)}>
-                    {item.is_active ? '停用' : '启用'}
-                  </Button>
-                </div>
-              </Card>
-            </Col>
-          ))}
+          {data.map((item) => {
+            const shareLink = `${mainSiteUrl}/questionnaire/${item.share_code}`
+            return (
+              <Col xs={24} sm={12} lg={8} key={item.id}>
+                <Card
+                  title={item.title}
+                  extra={<Tag color={item.is_active ? 'green' : 'default'}>
+                    {item.is_active ? '启用' : '停用'}
+                  </Tag>}
+                  actions={[
+                    <EditOutlined key="edit" onClick={() => navigate(`/questionnaires/${item.id}`)} />,
+                    <Popconfirm title="确认删除？" key="delete" onConfirm={() => handleDelete(item.id)}>
+                      <DeleteOutlined />
+                    </Popconfirm>,
+                  ]}
+                >
+                  <p style={{ color: '#666', marginBottom: 8 }}>{item.description || '暂无描述'}</p>
+                  <Space direction="vertical" style={{ width: '100%' }}>
+                    <Space>
+                      {item.category && <Tag color={categoryColors[item.category] || 'default'}>{item.category}</Tag>}
+                      <Tag icon={<LinkOutlined />} color="processing">
+                        {item.share_code}
+                      </Tag>
+                    </Space>
+                    
+                    <div style={{ marginTop: 8, padding: 8, background: '#f5f5f5', borderRadius: 4 }}>
+                      <div style={{ fontSize: 12, color: '#999', marginBottom: 4 }}>分享链接:</div>
+                      <Paragraph copyable={{ text: shareLink }} style={{ marginBottom: 0, fontSize: 13, wordBreak: 'break-all' }}>
+                        {shareLink}
+                      </Paragraph>
+                    </div>
+
+                    <div style={{ marginTop: 4 }}>
+                      <Button size="small" onClick={() => handleToggleActive(item)}>
+                        {item.is_active ? '停用' : '启用'}
+                      </Button>
+                    </div>
+                  </Space>
+                </Card>
+              </Col>
+            )
+          })}
         </Row>
       )}
     </div>
