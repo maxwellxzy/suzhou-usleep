@@ -8,5 +8,6 @@ export const getResult = (id) =>
 
 export const exportResults = (params) => {
   const query = new URLSearchParams(params).toString()
-  window.open(`/api/admin/results/export?${query}`, '_blank')
+  const token = localStorage.getItem('token')
+  window.open(`/api/admin/results/export?${query}&token=${token}`, '_blank')
 }

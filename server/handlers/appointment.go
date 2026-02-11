@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"encoding/csv"
+	"fmt"
 	"regexp"
 	"strconv"
 
@@ -131,4 +133,58 @@ func DeleteAppointment(c *gin.Context) {
 	}
 
 	utils.SuccessMessage(c, "删除成功")
+}
+
+// ExportAppointments 导出预约数据 CSV
+func ExportAppointments(c *gin.Context) {
+	status := c.Query("status")
+	keyword := c.Query("keyword")
+
+	query := database.DB.Model(&models.Appointment{})
+
+	if status != "" {
+		query = query.Where("status = ?", status)
+	}
+	if keyword != "" {
+		like := "%" + keyword + "%"
+		query = query.Where("name LIKE ? OR phone LIKE ?", like, like)
+	}
+
+	var appointments []models.Appointment
+	query.Order("created_at DESC").Find(&appointments)
+
+	c.Header("Content-Type", "text/csv; charset=utf-8")
+	c.Header("Content-Disposition", "attachment; filename=appointments.csv")
+	c.Writer.Write([]byte("\xEF\xBB\xBF")) // BOM
+
+	writer := csv.NewWriter(c.Writer)
+	defer writer.Flush()
+
+	writer.Write([]string{"ID", "姓名", "手机号", "性别", "年龄", "科室", "期望时间", "症状", "状态", "备注", "提交时间"})
+
+	for _, a := range appointments {
+		statusText := "待处理"
+		switch a.Status {
+		case "confirmed":
+			statusText = "已确认"
+		case "completed":
+			statusText = "已完成"
+		case "cancelled":
+			statusText = "已取消"
+		}
+
+		writer.Write([]string{
+			fmt.Sprintf("%d", a.ID),
+			a.Name,
+			a.Phone,
+			a.Gender,
+			strconv.Itoa(a.Age),
+			a.Department,
+			a.PreferredTime,
+			a.Symptoms,
+			statusText,
+			a.AdminNotes,
+			a.CreatedAt.Format("2006-01-02 15:04:05"),
+		})
+	}
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Button, Input, Select, Space, Modal, message, Popconfirm } from 'antd'
-import { SearchOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { getAppointments, updateAppointmentStatus, updateAppointmentNotes, deleteAppointment } from '../api/appointments'
+
+import { SearchOutlined, DeleteOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons'
+import { getAppointments, updateAppointmentStatus, updateAppointmentNotes, deleteAppointment, exportAppointments } from '../api/appointments'
 import dayjs from 'dayjs'
 
 const statusMap = {
@@ -60,6 +61,11 @@ export default function Appointments() {
     fetchData()
   }
 
+  const handleExport = () => {
+    exportAppointments({ status, keyword })
+    message.success('正在导出 CSV...')
+  }
+
   const columns = [
     { title: '姓名', dataIndex: 'name', width: 80 },
     { title: '手机号', dataIndex: 'phone', width: 130 },
@@ -114,8 +120,12 @@ export default function Appointments() {
           allowClear
           onSearch={setKeyword}
           style={{ width: 250 }}
+
           prefix={<SearchOutlined />}
         />
+        <Button icon={<DownloadOutlined />} onClick={handleExport}>
+          导出数据
+        </Button>
       </Space>
 
       <Table

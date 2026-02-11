@@ -34,6 +34,7 @@ func SetupRoutes(r *gin.Engine) {
 			admin.PUT("/appointments/:id/status", handlers.UpdateAppointmentStatus)
 			admin.PUT("/appointments/:id/notes", handlers.UpdateAppointmentNotes)
 			admin.DELETE("/appointments/:id", handlers.DeleteAppointment)
+			admin.GET("/appointments/export", handlers.ExportAppointments)
 
 			// 量表管理
 			admin.GET("/questionnaires", handlers.ListQuestionnairesAdmin)

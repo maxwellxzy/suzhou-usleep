@@ -11,3 +11,9 @@ export const updateAppointmentNotes = (id, admin_notes) =>
 
 export const deleteAppointment = (id) =>
   api.delete(`/admin/appointments/${id}`)
+
+export const exportAppointments = (params) => {
+  const query = new URLSearchParams(params).toString()
+  const token = localStorage.getItem('token')
+  window.open(`/api/admin/appointments/export?${query}&token=${token}`, '_blank')
+}
