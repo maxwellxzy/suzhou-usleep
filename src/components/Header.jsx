@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logoImg from '../assets/logo.png';
+import logoImgLight from '../assets/logo2.png';
+import logoImgDark from '../assets/logo4.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,7 +31,11 @@ const Header = () => {
       <div className="container flex justify-between items-center h-full">
         {/* Logo */}
         <Link to="/" className="logo">
-          <img src={logoImg} alt="USLEEP Logo" className="logo-img" />
+          <img 
+            src={isScrolled || !isHomePage ? logoImgDark : logoImgLight} 
+            alt="USLEEP Logo" 
+            className="logo-img" 
+          />
           <div className="logo-text">
              <div className="logo-title">苏州姑苏优眠医学中心</div>
              <div className="logo-subtitle">SUZHOU GUSU USLEEP MEDICAL CENTER</div>
