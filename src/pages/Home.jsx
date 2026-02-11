@@ -32,10 +32,10 @@ const stats = [
   { number: '20+', label: '核心专利技术', icon: Microscope },
 ];
 
-const Home = () => {
+const Home = ({ onOpenBooking }) => {
   return (
     <>
-      <Hero />
+      <Hero onOpenBooking={onOpenBooking} />
       
       {/* Wave Transition from Hero */}
       <div style={{

@@ -2,10 +2,10 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, onOpenBooking }) => {
   return (
     <div className="layout">
-      <Header />
+      <Header onOpenBooking={onOpenBooking} />
       <main className="main-content">
         {children}
       </main>

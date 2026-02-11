@@ -14,7 +14,7 @@ const trafficGuide = [
     { icon: Car, title: '自驾停车', desc: '导航至姑苏区齐溪街899号地下停车库，根据指示牌指引乘坐电梯上4楼。', color: '#C59D5F' },
 ];
 
-const Contact = () => {
+const Contact = ({ onOpenBooking }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -94,7 +94,7 @@ const Contact = () => {
                         <a href="tel:051266215999" className="btn-primary">
                             <Phone size={18} /> 电话预约
                         </a>
-                        <button className="btn-outline cta-online">
+                        <button className="btn-outline cta-online" onClick={onOpenBooking}>
                             <CalendarCheck size={18} /> 在线预约
                         </button>
                     </div>

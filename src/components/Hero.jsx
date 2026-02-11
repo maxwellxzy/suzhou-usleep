@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const Hero = () => {
+const Hero = ({ onOpenBooking }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const Hero = () => {
           苏州姑苏优眠医学中心 —— 一站式守护苏州儿童青少年心理健康，专业解决家庭睡眠管理与精神心理健康需求。
         </p>
         <div className="hero-actions fade-in-up delay-300">
-          <button className="btn-gold-lg">立即预约咨询</button>
+          <button className="btn-gold-lg" onClick={onOpenBooking}>立即预约咨询</button>
           <button className="btn-outline-white">了解更多</button>
         </div>
       </div>

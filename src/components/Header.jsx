@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import logoImgLight from '../assets/logo2.png';
 import logoImgDark from '../assets/logo4.png';
 
-const Header = () => {
+const Header = ({ onOpenBooking }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -50,7 +50,7 @@ const Header = () => {
           <Link to="/team" className="nav-link">专家团队</Link>
           <Link to="/technology" className="nav-link">前沿技术</Link>
           <Link to="/contact" className="nav-link">就医指南</Link>
-          <button className="header-cta">立即预约</button>
+          <button className="header-cta" onClick={onOpenBooking}>立即预约</button>
         </nav>
 
         {/* Mobile Toggle */}
@@ -71,7 +71,7 @@ const Header = () => {
               <Link to="/team" className="nav-link-mobile" onClick={() => setIsMobileMenuOpen(false)}>专家团队</Link>
               <Link to="/technology" className="nav-link-mobile" onClick={() => setIsMobileMenuOpen(false)}>前沿技术</Link>
               <Link to="/contact" className="nav-link-mobile" onClick={() => setIsMobileMenuOpen(false)}>就医指南</Link>
-              <button className="header-cta w-full mt-4">立即预约</button>
+              <button className="header-cta w-full mt-4" onClick={() => { setIsMobileMenuOpen(false); onOpenBooking(); }}>立即预约</button>
             </nav>
           </div>
         )}

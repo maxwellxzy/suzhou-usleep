@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Go backend
+server/usleep-server
+server/data/
+*.db
+
+# Admin frontend
+admin/node_modules
+admin/dist
