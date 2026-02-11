@@ -28,6 +28,12 @@ export default function Questionnaire() {
       .catch(() => { setError('加载失败'); setLoading(false); });
   }, [shareCode]);
 
+  useEffect(() => {
+    if (result) {
+      window.scrollTo(0, 0);
+    }
+  }, [result]);
+
   const handleAnswer = (questionId, value, isMulti) => {
     setAnswers(prev => {
       if (isMulti) {
