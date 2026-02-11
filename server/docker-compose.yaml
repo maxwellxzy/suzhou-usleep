@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  server:
+    build: .
+    image: usleep-server:latest
+    container_name: usleep-server
+    restart: always
+    ports:
+      - "127.0.0.1:8090:8080" # 仅本机可访问 (Caddy 反代使用)
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - SERVER_PORT=8080
+      - SERVER_MODE=release
+      - TXT_DB_PATH=/app/data/usleep.db
+    # 显式指定平台，确保在 M1/M2 Mac 上测试时也模拟 linux/amd64 环境
+    # 如果你在本机测试且不想模拟（因为慢），可以注释掉这行
+    platform: linux/amd64

@@ -3,7 +3,10 @@ package config
 import (
 	"log"
 
+	"strings"
+
 	"github.com/spf13/viper"
+
 )
 
 type Config struct {
@@ -39,6 +42,11 @@ func LoadConfig() {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("./config")
 	viper.AddConfigPath(".")
+
+	// 开启环境变量支持
+	viper.AutomaticEnv()
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("读取配置文件失败: %v", err)

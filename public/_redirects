@@ -1,0 +1,7 @@
+# Cloudflare Pages Redirects
+# 
+# Format: Source Destination Status
+# 
+# Proxy /api/* requests to your backend server
+# REPLACE 'https://your-backend-domain.com' WITH YOUR ACTUAL SERVER DOMAIN
+/api/*  https://your-backend-domain.com/api/:splat  200

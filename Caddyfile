@@ -1,0 +1,37 @@
+# Caddyfile for usleep project
+
+# 如果你有域名，请将 :80 替换为你的域名 (例如 example.com)
+# Caddy 会自动为你申请和续期 HTTPS 证书
+:80 {
+    # 1. API 反向代理
+    # 将 /api/* 的请求转发到后端容器 (usleep-server)
+    # 假设 Caddy 和 server 在同一个 Docker 网络中，直接用容器名
+    # 如果 Caddy 在宿主机运行，则用 localhost:8090
+    handle /api/* {
+        reverse_proxy localhost:8090
+    }
+
+    # 2. 管理后台 (/admin)
+    # 服务于 admin/dist 目录下的静态文件
+    handle_path /admin/* {
+        root * ./admin/dist
+        file_server
+        try_files {path} /index.html
+    }
+
+    # 3. 主网站 (根路径)
+    # 服务于 dist 目录下的静态文件
+    handle {
+        root * ./dist
+        file_server
+        try_files {path} /index.html
+    }
+    
+    # gzip 压缩
+    encode gzip
+    
+    # 日志
+    log {
+        output file ./caddy.log
+    }
+}
