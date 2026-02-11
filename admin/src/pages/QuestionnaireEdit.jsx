@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input, Select, Button, Card, Space, Divider, message, InputNumber } from 'antd'
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
-import { useNavigate, useParams } from 'react-router-dom'
+import { PlusOutlined, MinusCircleOutlined, CopyOutlined } from '@ant-design/icons'
+
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { getQuestionnaire, createQuestionnaire, updateQuestionnaire } from '../api/questionnaires'
 
 const categoryOptions = [
@@ -15,7 +16,9 @@ const categoryOptions = [
 export default function QuestionnaireEdit() {
   const { id } = useParams()
   const isNew = id === 'new'
+
   const navigate = useNavigate()
+  const location = useLocation()
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -37,9 +40,32 @@ export default function QuestionnaireEdit() {
           scoring_ranges: scoring.ranges || [],
         })
         setLoading(false)
+        setLoading(false)
       })
+    } else if (location.state?.duplicateData) {
+      // 处理复制逻辑
+      const source = location.state.duplicateData
+      let questions = []
+      let scoring = { method: 'sum', ranges: [] }
+      try { questions = JSON.parse(source.questions_json) } catch {}
+      try { scoring = JSON.parse(source.scoring_json) } catch {}
+      
+      // 清除题目 ID，确保作为新题目创建
+      questions = questions.map(q => {
+        const { id, ...rest } = q;
+        return rest;
+      })
+
+      form.setFieldsValue({
+        title: `${source.title} (副本)`,
+        description: source.description,
+        category: source.category,
+        questions,
+        scoring_ranges: scoring.ranges || [],
+      })
+      message.info('已从副本加载数据，请根据需要修改后保存')
     }
-  }, [id])
+  }, [id, location.state])
 
   const onFinish = async (values) => {
     setSaving(true)
@@ -143,10 +169,49 @@ export default function QuestionnaireEdit() {
                             添加选项
                           </Button>
                         </>
-                      )}
-                    </Form.List>
-                  </Card>
-                ))}
+                          )}
+                        </Form.List>
+
+                        {/* 复制选项功能 */}
+                        <div style={{ marginTop: 8 }}>
+                          <Select
+                            placeholder="复制其他题目的选项"
+                            style={{ width: 180 }}
+                            onChange={(sourceQIdx) => {
+                              // 获取源题目的当前值
+                              const allQuestions = form.getFieldValue('questions')
+                              const sourceOptions = allQuestions[sourceQIdx]?.options || []
+                              
+                              // 复制并覆盖当前题目的选项
+                              const newOptions = sourceOptions.map(opt => ({ 
+                                label: opt.label, 
+                                score: opt.score 
+                              }))
+                              
+                              // 更新表单
+                              const currentQuestions = [...allQuestions]
+                              currentQuestions[qIdx].options = newOptions
+                              form.setFieldsValue({ questions: currentQuestions })
+                              
+                              message.success(`已复制题目 ${sourceQIdx + 1} 的选项`)
+                            }}
+                            dropdownMatchSelectWidth={false}
+                          >
+                            {/* 列出除了自己以外的所有题目 */}
+                            {fields.map((f, i) => {
+                              if (i === qIdx) return null // 不复制自己
+                              const qValues = form.getFieldValue(['questions', i])
+                              const qTitle = qValues?.text ? `${i + 1}. ${qValues.text.substring(0, 10)}...` : `题目 ${i + 1}`
+                              return (
+                                <Select.Option key={i} value={i}>
+                                  {qTitle}
+                                </Select.Option>
+                              )
+                            })}
+                          </Select>
+                        </div>
+                      </Card>
+                    ))}
                 <Button type="dashed" onClick={() => add({ text: '', type: 'single_choice', options: [{ label: '', score: 0 }] })}
                   icon={<PlusOutlined />} block>
                   添加题目

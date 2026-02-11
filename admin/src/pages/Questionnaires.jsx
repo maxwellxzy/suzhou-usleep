@@ -34,6 +34,10 @@ export default function Questionnaires() {
     fetchData()
   }
 
+  const handleDuplicate = (item) => {
+    navigate('/questionnaires/new', { state: { duplicateData: item } })
+  }
+
   // 获取主站的基础URL (开发环境通过 .env 配置，生产环境默认为当前域名)
   const mainSiteUrl = import.meta.env.VITE_MAIN_SITE_URL || window.location.origin
 
@@ -67,9 +71,10 @@ export default function Questionnaires() {
                     {item.is_active ? '启用' : '停用'}
                   </Tag>}
                   actions={[
-                    <EditOutlined key="edit" onClick={() => navigate(`/questionnaires/${item.id}`)} />,
+                    <EditOutlined key="edit" title="编辑" onClick={() => navigate(`/questionnaires/${item.id}`)} />,
+                    <CopyOutlined key="duplicate" title="创建副本" onClick={() => handleDuplicate(item)} />,
                     <Popconfirm title="确认删除？" key="delete" onConfirm={() => handleDelete(item.id)}>
-                      <DeleteOutlined />
+                      <DeleteOutlined title="删除" />
                     </Popconfirm>,
                   ]}
                 >
